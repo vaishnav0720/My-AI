@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import "prismjs/themes/prism-tomorrow.css"
 import Editor from "react-simple-code-editor"
 import prism from "prismjs"
+import "prismjs/components/prism-clike"
+import "prismjs/components/prism-javascript"
 import Markdown from "react-markdown"
 import rehypeHighlight from "rehype-highlight"
 import "highlight.js/styles/github-dark.css"
@@ -35,7 +37,7 @@ function App() {
           <Editor
             value={code}
             onValueChange={setCode}
-            highlight={code => prism.highlight(code, prism.languages.javascript, "javascript")}
+            highlight={code => prism.highlight(code, prism.languages.javascript || prism.languages.clike, "javascript")}
             padding={10}
             className="h-full w-full font-mono text-white"
             style={{
