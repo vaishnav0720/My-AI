@@ -2,16 +2,16 @@ const aiService = require("../services/ai.service")
 
 
 module.exports.getReview = async (req, res) => {
+    try {
+        const code = req.body.code
+        if (!code) {
+            return res.status(400).send("code is required")
+        }
 
-    const code = req.body.code;
-
-    if (!code) {
-        return res.status(400).send("Prompt is required");
+        const response = await aiService(code)
+        res.send(response)
+    } catch (error) {
+        console.error("AI review error", error)
+        res.status(500).send("Failed to generate review")
     }
-
-    const response = await aiService(code);
-
-
-    res.send(response);
-
 }
